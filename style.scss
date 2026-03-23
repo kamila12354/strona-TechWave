@@ -1,0 +1,357 @@
+$primary: #3e8ec1;
+$secondary: #2b8bd7;
+$dark: #2f4050;
+$bg: #f5f7fb;
+$card: #ffffff;
+$sidebarWidth: 280px;
+$radius: 8px;
+$shadow: 0 6px 14px rgba(0,0,0,.12);
+
+
+@function rem($px){
+  @return ($px / 16) * 1rem;
+}
+
+@mixin card($padding){
+  background:$card;
+  padding:$padding;
+  border-radius:$radius;
+  box-shadow:$shadow;
+
+  @if $padding > 20px {
+    margin-bottom:20px;
+  }
+}
+
+%center{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+$service-colors:(
+        web:#3498db,
+        mobile:#9b59b6,
+        cloud:#1abc9c
+);
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  height:100%;
+}
+
+body{
+  margin:0;
+  font-family:Roboto,Arial,sans-serif;
+  background:#dcdcdc;
+}
+
+.page-wrap{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:18px;
+}
+
+.layout{
+  width:min(1800px,100%);
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:white;
+  box-shadow:$shadow;
+}
+
+.appbar{
+  display:flex;
+
+  &-left{
+    width:$sidebarWidth;
+    flex:0 0 $sidebarWidth;
+
+    background:linear-gradient(180deg,#ffffffcc,#ffffffdd),
+    url("https://blog.cyfrowe.pl/wp-content/uploads/2019/08/chmury-glowne-foto-.jpg");
+    background-size:cover;
+
+    @extend %center;
+  }
+
+  &-right{
+    flex:1;
+    background:$primary;
+    color:white;
+    padding:25px;
+
+    h1{
+      margin:0;
+      font-size:rem(20);
+      letter-spacing:2px;
+    }
+  }
+}
+
+
+.logo-circle{
+  width:80px;
+  height:80px;
+  border-radius:8px;
+  background:#3498db;
+  color:white;
+
+  @extend %center;
+
+  font-weight:bold;
+}
+
+.belowbar{
+  flex:1;
+  display:flex;
+  min-height:0;
+}
+
+.sidebar{
+  width:$sidebarWidth;
+  flex:0 0 $sidebarWidth;
+  height:100%;
+
+  background:linear-gradient(180deg,#2b8bd7,#1c5fb6);
+  color:white;
+
+  padding:20px;
+}
+
+.navigation{
+  list-style:none;
+  padding:0;
+  margin:0;
+
+  li{
+
+    margin-bottom:6px;
+
+    a{
+      display:block;
+      padding:12px;
+      color:white;
+      text-decoration:none;
+
+      background:linear-gradient(90deg,#2b8bd7,#1c5fb6);
+
+      &:hover{
+        background:linear-gradient(90deg,#22c55e,#059669);
+      }
+    }
+
+    .submenu{
+      display:none;
+      list-style:none;
+      padding-left:10px;
+
+      a{
+        background:navy;
+      }
+    }
+
+    &:hover .submenu{
+      display:block;
+    }
+
+  }
+}
+
+.scroller{
+  flex:1;
+  overflow-y:auto;
+  background:$bg;
+}
+
+.content-inner{
+  padding:25px;
+}
+
+.hero{
+  background:linear-gradient(120deg,#3e8ec1,#34495e);
+  color:white;
+  text-align:center;
+  padding:80px 20px;
+
+  animation:fadeUp .7s;
+
+  h1{
+    font-size:rem(42);
+    margin-bottom:10px;
+  }
+
+  p{
+    max-width:700px;
+    margin:auto;
+  }
+
+}
+
+.btn{
+  display:inline-block;
+  margin-top:20px;
+
+  padding:12px 22px;
+
+  background:linear-gradient(90deg,$secondary,#1c5fb6);
+  color:white;
+  text-decoration:none;
+  border-radius:6px;
+  font-weight:700;
+
+  &:hover{
+    filter:brightness(1.1);
+  }
+}
+
+.section-title{
+  font-size:rem(28);
+  margin-bottom:20px;
+  border-bottom:3px solid $primary;
+  padding-bottom:10px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.stat-box{
+  @include card(25px);
+  text-align:center;
+
+  h3{
+    font-size:rem(36);
+    color:$primary;
+    margin:0;
+  }
+
+  p{
+    margin:5px 0 0 0;
+  }
+}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  @include card(25px);
+  text-align:center;
+
+  .card-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    margin:auto;
+
+    @extend %center;
+
+    color:white;
+    font-weight:bold;
+  }
+}
+
+@each $name,$color in $service-colors{
+
+  ##{$name}{
+
+    .card-icon{
+      background:$color;
+    }
+
+  }
+
+}
+
+.contact{
+  @include card(25px);
+
+  form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    input,textarea{
+      padding:10px;
+      border:1px solid #ccc;
+
+      &:focus{
+        border-color:$primary;
+        outline:none;
+      }
+    }
+
+    textarea{
+      min-height:120px;
+    }
+  }
+}
+
+footer{
+  background:$dark;
+  color:white;
+  padding:30px;
+  margin-top:30px;
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    text-align:center;
+    gap:20px;
+  }
+
+  h3{
+    color:$primary;
+  }
+
+}
+
+@for $i from 1 through 4{
+
+  .stat-box:nth-child(#{$i}){
+    animation:fadeUp .6s ease forwards;
+    animation-delay:$i * .15s;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .sidebar{
+    width:220px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+}
